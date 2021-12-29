@@ -24,6 +24,7 @@ steps:
   args:
   - run
   - --filename=magento-deploy.yaml
+  - --image=gcr.io/$PROJECT_ID/magento:$SHORT_SHA
   - --location=asia-southeast1
   - --cluster=cluster-1
   
