@@ -24,3 +24,8 @@ steps:
   - --filename=magento-deploy.yaml
   - --location=asia-southeast1
   - --cluster=cluster-1
+  
+options:
+  pool:
+    name: 'projects/moonshot-332509/locations/asia-southeast1/workerPools/yantk-p-pool'
+    
