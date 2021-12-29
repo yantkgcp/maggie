@@ -1,0 +1,21 @@
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    cloud.google.com/backend-config: '{"default": "magento-backendconfig"}'
+    cloud.google.com/neg: '{"ingress":true}'
+  labels:
+    app: magento23
+  name: magento23
+  namespace: default
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: magento23
+  sessionAffinity: None
+  type: ClusterIP
+
+  

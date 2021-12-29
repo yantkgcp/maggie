@@ -1,0 +1,16 @@
+apiVersion: networking.gke.io/v1
+kind: ManagedCertificate
+metadata:
+  name: kinaws-cert
+spec:
+  domains:
+    - www.kinaws.com
+
+---
+apiVersion: networking.gke.io/v1
+kind: ManagedCertificate
+metadata:
+  name: yantk-cert
+spec:
+  domains:
+    - www.yantkgoogle.cloud

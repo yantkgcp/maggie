@@ -1,0 +1,119 @@
+{
+    "taskDefinition": {
+        "taskDefinitionArn": "arn:aws:ecs:ap-southeast-1:529873347575:task-definition/mbp3-ec2:5",
+        "containerDefinitions": [
+            {
+                "name": "magento23",
+                "image": "529873347575.dkr.ecr.ap-southeast-1.amazonaws.com/mbp-magento23:latest",
+                "cpu": 2048,
+                "memory": 2000,
+                "memoryReservation": 2000,
+                "portMappings": [
+                    {
+                        "containerPort": 80,
+                        "hostPort": 80,
+                        "protocol": "tcp"
+                    }
+                ],
+                "essential": true,
+                "environment": [],
+                "mountPoints": [
+                    {
+                        "sourceVolume": "media",
+                        "containerPath": "/var/www/html/shop/pub/media"
+                    },
+                    {
+                        "sourceVolume": "varlog",
+                        "containerPath": "/var/www/html/shop/var/log"
+                    }
+                ],
+                "volumesFrom": [],
+                "privileged": false,
+                "logConfiguration": {
+                    "logDriver": "awslogs",
+                    "options": {
+                        "awslogs-group": "/ecs/mbp3-ec2",
+                        "awslogs-region": "ap-southeast-1",
+                        "awslogs-stream-prefix": "ecs"
+                    }
+                }
+            }
+        ],
+        "family": "mbp3-ec2",
+        "taskRoleArn": "arn:aws:iam::529873347575:role/ECS-Task-Role",
+        "executionRoleArn": "arn:aws:iam::529873347575:role/ECS-Task-Role",
+        "networkMode": "awsvpc",
+        "revision": 5,
+        "volumes": [
+            {
+                "name": "media",
+                "efsVolumeConfiguration": {
+                    "fileSystemId": "fs-ad732aec",
+                    "rootDirectory": "/",
+                    "transitEncryption": "DISABLED",
+                    "authorizationConfig": {
+                        "iam": "DISABLED"
+                    }
+                }
+            },
+            {
+                "name": "varlog",
+                "dockerVolumeConfiguration": {
+                    "scope": "task",
+                    "driver": "local"
+                }
+            }
+        ],
+        "status": "ACTIVE",
+        "requiresAttributes": [
+            {
+                "name": "ecs.capability.execution-role-awslogs"
+            },
+            {
+                "name": "com.amazonaws.ecs.capability.ecr-auth"
+            },
+            {
+                "name": "com.amazonaws.ecs.capability.docker-remote-api.1.21"
+            },
+            {
+                "name": "ecs.capability.docker-plugin.local"
+            },
+            {
+                "name": "com.amazonaws.ecs.capability.task-iam-role"
+            },
+            {
+                "name": "ecs.capability.execution-role-ecr-pull"
+            },
+            {
+                "name": "com.amazonaws.ecs.capability.docker-remote-api.1.18"
+            },
+            {
+                "name": "ecs.capability.task-eni"
+            },
+            {
+                "name": "com.amazonaws.ecs.capability.logging-driver.awslogs"
+            },
+            {
+                "name": "ecs.capability.efsAuth"
+            },
+            {
+                "name": "com.amazonaws.ecs.capability.docker-remote-api.1.19"
+            },
+            {
+                "name": "ecs.capability.efs"
+            },
+            {
+                "name": "com.amazonaws.ecs.capability.docker-remote-api.1.25"
+            }
+        ],
+        "placementConstraints": [],
+        "compatibilities": [
+            "EC2"
+        ],
+        "requiresCompatibilities": [
+            "EC2"
+        ],
+        "cpu": "2048",
+        "memory": "3000"
+    }
+}

@@ -1,0 +1,51 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: magento23
+  labels:
+    app: magento23
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: magento23
+  template:
+    metadata:
+      labels:
+        app: magento23
+      annotations: 
+        fluentbit.io/parser: apache2
+    spec:
+      containers:
+        - name: magento23
+          image: gcr.io/moonshot-332509/magento@sha256:d24c1d506ba9201804e255cf247b3dd085a93a9f1a5cf37b9bbb3cad572dcddd
+          ports:
+            - containerPort: 80
+              name: magento23
+          volumeMounts:
+            - name: shopvarlog
+              mountPath: "/var/www/html/shop/var/log"
+          resources:
+            limits:
+              cpu: "2"
+              memory: "1500Mi"
+            requests:
+              cpu: "1"
+              memory: "1500Mi"
+        - name: eshop-debug
+          image: busybox:1.32.0
+          args: [/bin/sh, -c, 'touch /var/log/debug.log; tail -n+1 -f /var/log/debug.log']
+          securityContext:
+            runAsUser: 33
+          volumeMounts:
+          - name: shopvarlog
+            mountPath: /var/log
+          resources:
+            limits:
+              cpu: "0.05"
+              memory: "100Mi"
+      volumes:
+        - name: shopvarlog
+          emptyDir: {}
+          
+

@@ -1,0 +1,25 @@
+apiVersion: cloud.google.com/v1
+kind: BackendConfig
+metadata:
+  name: magento-backendconfig
+spec:
+  timeoutSec: 40
+  connectionDraining:
+    drainingTimeoutSec: 60
+  cdn:
+      enabled: true
+      cachePolicy:
+        includeHost: true
+        includeProtocol: true
+        includeQueryString: false
+  healthCheck:
+    checkIntervalSec: 30
+    timeoutSec: 30
+    healthyThreshold: 2
+    unhealthyThreshold: 3
+    type: HTTP
+    requestPath: /healthy.html
+    port: 80
+
+
+    
