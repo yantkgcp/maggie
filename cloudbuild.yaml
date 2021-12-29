@@ -6,6 +6,8 @@ steps:
   - 'build'
   - '-t'
   - 'gcr.io/$PROJECT_ID/magento:$SHORT_SHA'
+  - '--cache-from'
+  - 'gcr.io/$PROJECT_ID/magento:7.3.20'
   - '.'
 
 # This step pushes the image to Artifact Registry
