@@ -1,0 +1,26 @@
+steps:
+# This step builds the container image.
+- name: 'gcr.io/cloud-builders/docker'
+  id: Build
+  args:
+  - 'build'
+  - '-t'
+  - 'gcr.io/$PROJECT_ID/magento:$SHORT_SHA'
+  - '.'
+
+# This step pushes the image to Artifact Registry
+# The PROJECT_ID and SHORT_SHA variables are automatically
+# replaced by Cloud Build.
+- name: 'gcr.io/cloud-builders/docker'
+  id: Push
+  args:
+  - 'push'
+  - 'gcr.io/$PROJECT_ID/magento:$SHORT_SHA'
+  
+# deploy container image to GKE
+- name: "gcr.io/cloud-builders/gke-deploy"
+  args:
+  - run
+  - --filename=magento-deploy.yaml
+  - --location=asia-southeast1
+  - --cluster=cluster-1
