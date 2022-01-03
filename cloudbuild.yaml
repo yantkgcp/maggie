@@ -18,7 +18,18 @@ steps:
   args:
   - 'push'
   - 'gcr.io/$PROJECT_ID/magento:$SHORT_SHA'
-  
+
+# create image attestation   
+- id: 'create-attestation'
+  name: 'gcr.io/${PROJECT_ID}/binauthz-attestation:latest'
+  args:
+    - '--artifact-url'
+    - 'gcr.io/${PROJECT_ID}/magento:$SHORT_SHA'
+    - '--attestor'
+    - 'projects/${PROJECT_ID}/attestors/built-by-cloud-build'
+    - '--keyversion'
+    - 'projects/${PROJECT_ID}/locations/asia-southeast1/keyRings/moonshot/cryptoKeys/attest/cryptoKeyVersions/1'
+
 # deploy container image to GKE
 - name: "gcr.io/cloud-builders/gke-deploy"
   args:
