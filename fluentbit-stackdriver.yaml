@@ -37,6 +37,7 @@ data:
     [OUTPUT]
         Name stackdriver
         Match magento.*
+        export_to_project_id  logging-332508
         Resource  k8s_container
         k8s_cluster_name cluster-1
         k8s_cluster_location  asia-southeast1
