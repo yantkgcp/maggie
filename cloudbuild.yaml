@@ -39,7 +39,8 @@ steps:
   - --location=asia-southeast1
   - --cluster=cluster-1
   
+timeout: 900s
 options:
   pool:
-    name: 'projects/moonshot-332509/locations/asia-southeast1/workerPools/yantk-p-pool'
+    name: 'projects/${PROJECT_ID}/locations/asia-southeast1/workerPools/yantk-p-pool'
     
